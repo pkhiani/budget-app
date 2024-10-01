@@ -23,10 +23,10 @@ const fetchData = async (url, data) => {
 
 // Endpoint to handle budget estimation
 app.post('/get-budget-estimate', async (req, res) => {
-    const { monthlyIncome, city } = req.body; // Get income and city from frontend input
+    const { retirementAge, city } = req.body; // Get retirement age and city from frontend input
 
-    if (!monthlyIncome || !city) {
-        return res.status(400).json({ error: 'Income and city are required.' });
+    if (!retirementAge || !city) {
+        return res.status(400).json({ error: 'Retirement age and city are required.' });
     }
 
     const url = 'https://api.openai.com/v1/chat/completions';
@@ -35,7 +35,7 @@ app.post('/get-budget-estimate', async (req, res) => {
         messages: [
             {
                 role: "user",
-                content: `Estimate a budget breakdown for someone living in ${city} with a monthly income of ${monthlyIncome}. Use the following categories: Housing, Groceries, Transportation, Body care, Entertainment, Shopping, Investments`
+                content: `Following the 50/30/20 rule, estimate a budget breakdown for wanting to retire in ${city}, given a retirement age of ${retirementAge} and assuming a 4% withdrawal rate. Use the following categories: Housing, Groceries, Transportation, Body care, Entertainment, Shopping, Investments. Also include how much one would need to invest monthly to reach their retirement amount.`
             }
         ],
         max_tokens: 200, // Adjust as necessary

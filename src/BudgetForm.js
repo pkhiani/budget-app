@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 function BudgetForm() {
   const [monthlyIncome, setMonthlyIncome] = useState('');
   const [city, setCity] = useState('');
+  const [retirementAge, setRetirementAge] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [budgetEstimate, setBudgetEstimate] = useState('');
   const [error, setError] = useState('');
@@ -26,7 +27,7 @@ function BudgetForm() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ monthlyIncome: Number(monthlyIncome), city }),
+        body: JSON.stringify({ retirementAge: Number(retirementAge), city }),
       });
 
       if (!response.ok) {
@@ -63,9 +64,9 @@ const cleanOutput = (text) => {
 
   return (
     <div>
-      <h1>Budget Planner</h1>
+      <h1>Design Your Life</h1>
       <form onSubmit={handleSubmit}>
-        <div>
+        {/* <div>
           <label>Current Monthly Income </label>
           <input 
             type="number" 
@@ -74,7 +75,7 @@ const cleanOutput = (text) => {
             placeholder="Enter your monthly income"
             required 
           />
-        </div>
+        </div> */}
 
         <div>
           <label>City </label>
@@ -83,6 +84,17 @@ const cleanOutput = (text) => {
             value={city} 
             onChange={(e) => setCity(e.target.value)} 
             placeholder="Enter your city"
+            required 
+          />
+        </div>
+
+        <div>
+          <label>Retirement Age </label>
+          <input 
+            type="text" 
+            value={retirementAge} 
+            onChange={(e) => setRetirementAge(e.target.value)} 
+            placeholder="Enter your desired retirement age"
             required 
           />
         </div>
